@@ -1,5 +1,6 @@
 import { searchDictionary } from './modules/dictionaryModule.js';
 import { searchjpDictionary } from './modules/jpdictionaryModule.js';
+import { initPDFModule } from "./modules/pdfModule.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     // すべてのセクションとリンクを取得
@@ -12,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "editor": document.getElementById('editor-link'),
         "ocr": document.getElementById('ocr-link'), // OCR機能がある場合
         "pos": document.getElementById('pos-link'),
+        "pdf": document.getElementById('pdf-link'),// pdf【β】
         "audio": document.getElementById('audio-link'),
         "changelog": document.getElementById('changelog-link') // 更新履歴リンク
     };
@@ -26,6 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetSection = document.getElementById(sectionId);
         if (targetSection) {
             targetSection.style.display = 'block';
+            // test実装
+            if (sectionId === "pdf-section") {
+                initPDFModule();
+            }
         } else {
             console.warn(`セクション ${sectionId} が見つかりません`);
         }
@@ -52,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof initializePOS !== 'undefined' && typeof initializePOS === 'function') {
         initializePOS();
     }
+
 
     // Service Worker の登録
     if ('serviceWorker' in navigator) {
